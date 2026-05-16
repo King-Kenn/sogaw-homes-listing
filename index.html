@@ -148,64 +148,118 @@
     }
     .hero-cta:hover { background: var(--gold-light); transform: translateY(-2px); }
 
-    /* ── PHOTO GALLERY PLACEHOLDER ── */
-    /*
-      =============================================
-      PHOTO GALLERY — ADD IMAGES HERE
-      =============================================
-      Replace the src="" attributes on the <img> tags below
-      with hosted image URLs (e.g. from Google Photos, Imgur, Cloudinary).
-      Suggested: 6–8 photos covering exterior, living room,
-      kitchen, master suite, cinema room, and outdoor area.
-
-      Example URL format:
-        https://i.imgur.com/XXXXXXX.jpg
-        https://lh3.googleusercontent.com/XXXXXXX
-
-      There are 6 placeholder slots below inside .gallery-grid.
-      Add more .gallery-item divs as needed.
-      =============================================
-    */
-    .gallery-section {
-      padding: 0 24px 80px;
+    /* ── PHOTO GALLERY ── */
+    .gallery-section { padding: 0 0 80px; background: var(--navy); }
+    .gallery-header { text-align: center; padding: 60px 24px 32px; }
+    .gallery-filters {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      justify-content: center;
+      padding: 0 24px 32px;
       max-width: 1200px;
       margin: 0 auto;
     }
+    .gallery-filter-btn {
+      padding: 8px 20px;
+      background: transparent;
+      border: 1px solid rgba(201,168,76,0.25);
+      border-radius: 50px;
+      color: var(--muted);
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+      font-size: 0.73rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: all var(--transition);
+    }
+    .gallery-filter-btn:hover,
+    .gallery-filter-btn.active {
+      background: var(--gold);
+      border-color: var(--gold);
+      color: var(--navy);
+      font-weight: 700;
+    }
     .gallery-grid {
       display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 10px;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 8px;
+      padding: 0 24px;
+      max-width: 1400px;
+      margin: 0 auto;
     }
     .gallery-item {
       aspect-ratio: 4/3;
-      background: var(--navy-light);
-      border: 1px dashed rgba(201,168,76,0.2);
-      border-radius: 8px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      gap: 8px;
-      color: var(--muted);
-      font-family: 'Helvetica Neue', Arial, sans-serif;
-      font-size: 0.75rem;
-      letter-spacing: 0.08em;
-      text-align: center;
-      padding: 12px;
       overflow: hidden;
+      border-radius: 8px;
+      cursor: pointer;
       position: relative;
+      background: var(--navy-light);
     }
     .gallery-item img {
-      position: absolute;
-      inset: 0;
       width: 100%;
       height: 100%;
       object-fit: cover;
-      border-radius: 8px;
-      display: none; /* shown when src is populated */
+      display: block;
+      transition: transform 0.4s ease;
     }
-    .gallery-item .placeholder-label { position: relative; z-index: 1; }
-    .gallery-item:first-child { grid-column: span 2; aspect-ratio: 16/9; }
+    .gallery-item:hover img { transform: scale(1.05); }
+    .gallery-item.hidden { display: none; }
+    .gallery-item.featured { grid-column: span 2; aspect-ratio: 16/9; }
+    /* ── LIGHTBOX ── */
+    .lightbox {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.96);
+      z-index: 999;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+    }
+    .lightbox.open { display: flex; }
+    .lightbox-img { max-width: 90vw; max-height: 80vh; object-fit: contain; border-radius: 6px; }
+    .lightbox-caption {
+      margin-top: 16px;
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+      font-size: 0.8rem;
+      color: var(--muted);
+      letter-spacing: 0.08em;
+      text-align: center;
+    }
+    .lightbox-close {
+      position: absolute;
+      top: 24px; right: 28px;
+      font-size: 2.2rem;
+      color: var(--off-white);
+      background: none;
+      border: none;
+      cursor: pointer;
+      line-height: 1;
+      transition: color var(--transition);
+    }
+    .lightbox-close:hover { color: var(--gold); }
+    .lightbox-nav {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.15);
+      color: var(--off-white);
+      font-size: 1.6rem;
+      width: 52px; height: 52px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all var(--transition);
+    }
+    .lightbox-nav:hover { background: var(--gold); color: var(--navy); border-color: var(--gold); }
+    .lightbox-prev { left: 20px; }
+    .lightbox-next { right: 20px; }
+    @media (max-width: 900px) { .gallery-grid { grid-template-columns: repeat(3, 1fr); } }
+    @media (max-width: 600px) { .gallery-grid { grid-template-columns: repeat(2, 1fr); } .gallery-item.featured { grid-column: span 2; } }
 
     /* ── SECTION COMMON ── */
     section { padding: 80px 24px; }
@@ -579,85 +633,136 @@
   </section>
 
   <!-- PHOTO GALLERY -->
-  <!--
-    =============================================
-    PHOTO GALLERY — ADD YOUR IMAGES HERE
-    =============================================
-    Replace src="" on each <img> below with a hosted image URL.
-    Recommended hosts: Google Photos (share link → direct URL),
-    Imgur (https://i.imgur.com/XXXXXXX.jpg), or Cloudinary.
-
-    Slot 1 (large, spans 2 columns): Exterior / Hero shot
-    Slot 2: Living room / entertainment unit
-    Slot 3: Island kitchen
-    Slot 4: Master bedroom suite
-    Slot 5: Master ensuite / stone bath
-    Slot 6: Home cinema
-
-    To activate a photo:
-    1. Upload image to your host and copy the direct URL
-    2. Set src="YOUR_URL_HERE" on the relevant <img>
-    3. Change display:none to display:block on that <img>
-    4. Optionally remove the .placeholder-label div for that slot
-    =============================================
-  -->
   <div class="gallery-section">
-    <div class="gallery-grid">
-      <div class="gallery-item">
-        <img src="" alt="Exterior — Sogaw Homes Luxury Townhouse" />
-        <div class="placeholder-label">
-          <svg width="28" height="28" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" style="color:rgba(201,168,76,0.4);margin-bottom:6px">
-            <rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/>
-          </svg>
-          EXTERIOR / HERO SHOT<br/><span style="color:rgba(201,168,76,0.35)">Add image URL</span>
-        </div>
+    <div class="gallery-header">
+      <p class="section-label">Photo Gallery</p>
+      <h2 class="section-title">Inside the Property</h2>
+      <div class="section-divider" style="margin:16px auto 0"></div>
+    </div>
+    <div class="gallery-filters">
+      <button class="gallery-filter-btn active" data-filter="all">All Photos</button>
+      <button class="gallery-filter-btn" data-filter="living-room">Living Room</button>
+      <button class="gallery-filter-btn" data-filter="kitchen">Kitchen</button>
+      <button class="gallery-filter-btn" data-filter="lounge">Lounge</button>
+      <button class="gallery-filter-btn" data-filter="master-suite">Master Suite</button>
+      <button class="gallery-filter-btn" data-filter="master-bathroom">Master Bathroom</button>
+      <button class="gallery-filter-btn" data-filter="closet">Walk-in Closet</button>
+      <button class="gallery-filter-btn" data-filter="cinema">Home Cinema</button>
+      <button class="gallery-filter-btn" data-filter="guest-room">Guest Room</button>
+      <button class="gallery-filter-btn" data-filter="junior-bedroom">Junior Bedroom</button>
+      <button class="gallery-filter-btn" data-filter="stairway">Stairway</button>
+    </div>
+    <div class="gallery-grid" id="galleryGrid">
+      <!-- Living Room -->
+      <div class="gallery-item featured" data-category="living-room" data-caption="Living Room">
+        <img src="https://raw.githubusercontent.com/King-Kenn/sogaw-homes-listing/main/Living%20Room%2001.jpeg" alt="Living Room" loading="lazy" />
       </div>
-      <div class="gallery-item">
-        <img src="" alt="Living room with entertainment unit" />
-        <div class="placeholder-label">
-          <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" style="color:rgba(201,168,76,0.4);margin-bottom:6px">
-            <rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/>
-          </svg>
-          LIVING ROOM
-        </div>
+      <div class="gallery-item" data-category="living-room" data-caption="Living Room">
+        <img src="https://raw.githubusercontent.com/King-Kenn/sogaw-homes-listing/main/Living%20Room%2002.jpeg" alt="Living Room" loading="lazy" />
       </div>
-      <div class="gallery-item">
-        <img src="" alt="Island kitchen with marble surfaces" />
-        <div class="placeholder-label">
-          <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" style="color:rgba(201,168,76,0.4);margin-bottom:6px">
-            <rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/>
-          </svg>
-          ISLAND KITCHEN
-        </div>
+      <div class="gallery-item" data-category="living-room" data-caption="Media Wall">
+        <img src="https://raw.githubusercontent.com/King-Kenn/sogaw-homes-listing/main/Living%20Room%20Media%20Wall%2001.jpeg" alt="Media Wall" loading="lazy" />
       </div>
-      <div class="gallery-item">
-        <img src="" alt="Master bedroom suite" />
-        <div class="placeholder-label">
-          <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" style="color:rgba(201,168,76,0.4);margin-bottom:6px">
-            <rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/>
-          </svg>
-          MASTER SUITE
-        </div>
+      <!-- Kitchen -->
+      <div class="gallery-item" data-category="kitchen" data-caption="Island Kitchen">
+        <img src="https://raw.githubusercontent.com/King-Kenn/sogaw-homes-listing/main/Kitchen%2001.jpeg" alt="Island Kitchen" loading="lazy" />
       </div>
-      <div class="gallery-item">
-        <img src="" alt="Ensuite with freestanding stone bath" />
-        <div class="placeholder-label">
-          <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" style="color:rgba(201,168,76,0.4);margin-bottom:6px">
-            <rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/>
-          </svg>
-          MASTER ENSUITE
-        </div>
+      <div class="gallery-item" data-category="kitchen" data-caption="Island Kitchen">
+        <img src="https://raw.githubusercontent.com/King-Kenn/sogaw-homes-listing/main/Kitchen%2002.jpeg" alt="Island Kitchen" loading="lazy" />
       </div>
-      <div class="gallery-item">
-        <img src="" alt="Private home cinema" />
-        <div class="placeholder-label">
-          <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" style="color:rgba(201,168,76,0.4);margin-bottom:6px">
-            <rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/>
-          </svg>
-          HOME CINEMA
-        </div>
+      <!-- Lounge -->
+      <div class="gallery-item" data-category="lounge" data-caption="Lounge Area">
+        <img src="https://raw.githubusercontent.com/King-Kenn/sogaw-homes-listing/main/Lounge%20Area%2001.jpeg" alt="Lounge Area" loading="lazy" />
+      </div>
+      <div class="gallery-item" data-category="lounge" data-caption="Lounge Area">
+        <img src="https://raw.githubusercontent.com/King-Kenn/sogaw-homes-listing/main/Lounge%20Area%2002.jpeg" alt="Lounge Area" loading="lazy" />
+      </div>
+      <!-- Master Suite -->
+      <div class="gallery-item featured" data-category="master-suite" data-caption="Master Suite">
+        <img src="https://raw.githubusercontent.com/King-Kenn/sogaw-homes-listing/main/Master%20Suite%2001.jpeg" alt="Master Suite" loading="lazy" />
+      </div>
+      <div class="gallery-item" data-category="master-suite" data-caption="Master Suite">
+        <img src="https://raw.githubusercontent.com/King-Kenn/sogaw-homes-listing/main/Master%20Suite%2002.jpeg" alt="Master Suite" loading="lazy" />
+      </div>
+      <div class="gallery-item" data-category="master-suite" data-caption="Master Suite">
+        <img src="https://raw.githubusercontent.com/King-Kenn/sogaw-homes-listing/main/Master%20Suite%2003.jpeg" alt="Master Suite" loading="lazy" />
+      </div>
+      <!-- Master Bathroom -->
+      <div class="gallery-item" data-category="master-bathroom" data-caption="Master Suite Bathroom">
+        <img src="https://raw.githubusercontent.com/King-Kenn/sogaw-homes-listing/main/Master%20Suite%20Bathroom%2001.jpeg" alt="Master Suite Bathroom" loading="lazy" />
+      </div>
+      <div class="gallery-item" data-category="master-bathroom" data-caption="Master Suite Bathroom">
+        <img src="https://raw.githubusercontent.com/King-Kenn/sogaw-homes-listing/main/Master%20Suite%20Bathroom%2002.jpeg" alt="Master Suite Bathroom" loading="lazy" />
+      </div>
+      <div class="gallery-item" data-category="master-bathroom" data-caption="Master Suite Bathroom">
+        <img src="https://raw.githubusercontent.com/King-Kenn/sogaw-homes-listing/main/Master%20Suite%20Bathroom%2003.jpeg" alt="Master Suite Bathroom" loading="lazy" />
+      </div>
+      <!-- Walk-in Closet -->
+      <div class="gallery-item" data-category="closet" data-caption="Fully Fitted Walk-in Closet">
+        <img src="https://raw.githubusercontent.com/King-Kenn/sogaw-homes-listing/main/Master%20Suite%20Fully%20Fitted%20Closet%2001.jpeg" alt="Walk-in Closet" loading="lazy" />
+      </div>
+      <div class="gallery-item" data-category="closet" data-caption="Fully Fitted Walk-in Closet">
+        <img src="https://raw.githubusercontent.com/King-Kenn/sogaw-homes-listing/main/Master%20Suite%20Fully%20Fitted%20Closet%2002.jpeg" alt="Walk-in Closet" loading="lazy" />
+      </div>
+      <div class="gallery-item" data-category="closet" data-caption="Fully Fitted Walk-in Closet">
+        <img src="https://raw.githubusercontent.com/King-Kenn/sogaw-homes-listing/main/Master%20Suite%20Fully%20Fitted%20Closet%2003.jpeg" alt="Walk-in Closet" loading="lazy" />
+      </div>
+      <div class="gallery-item" data-category="closet" data-caption="Fully Fitted Walk-in Closet">
+        <img src="https://raw.githubusercontent.com/King-Kenn/sogaw-homes-listing/main/Master%20Suite%20Fully%20Fitted%20Closet%2004.jpeg" alt="Walk-in Closet" loading="lazy" />
+      </div>
+      <div class="gallery-item" data-category="closet" data-caption="Fully Fitted Walk-in Closet">
+        <img src="https://raw.githubusercontent.com/King-Kenn/sogaw-homes-listing/main/Master%20Suite%20Fully%20Fitted%20Closet%2005.jpeg" alt="Walk-in Closet" loading="lazy" />
+      </div>
+      <!-- Cinema -->
+      <div class="gallery-item featured" data-category="cinema" data-caption="Private Home Cinema">
+        <img src="https://raw.githubusercontent.com/King-Kenn/sogaw-homes-listing/main/Cinema%2001.jpeg" alt="Home Cinema" loading="lazy" />
+      </div>
+      <div class="gallery-item" data-category="cinema" data-caption="Private Home Cinema">
+        <img src="https://raw.githubusercontent.com/King-Kenn/sogaw-homes-listing/main/Cinema%2002.jpeg" alt="Home Cinema" loading="lazy" />
+      </div>
+      <div class="gallery-item" data-category="cinema" data-caption="Private Home Cinema">
+        <img src="https://raw.githubusercontent.com/King-Kenn/sogaw-homes-listing/main/Cinema%2003.jpeg" alt="Home Cinema" loading="lazy" />
+      </div>
+      <!-- Guest Room -->
+      <div class="gallery-item" data-category="guest-room" data-caption="Guest Room">
+        <img src="https://raw.githubusercontent.com/King-Kenn/sogaw-homes-listing/main/Guest%20Room%2001.jpeg" alt="Guest Room" loading="lazy" />
+      </div>
+      <div class="gallery-item" data-category="guest-room" data-caption="Guest Room">
+        <img src="https://raw.githubusercontent.com/King-Kenn/sogaw-homes-listing/main/Guest%20Room%2002.jpeg" alt="Guest Room" loading="lazy" />
+      </div>
+      <div class="gallery-item" data-category="guest-room" data-caption="Guest Room">
+        <img src="https://raw.githubusercontent.com/King-Kenn/sogaw-homes-listing/main/Guest%20Room%2003.jpeg" alt="Guest Room" loading="lazy" />
+      </div>
+      <!-- Junior Bedroom -->
+      <div class="gallery-item" data-category="junior-bedroom" data-caption="Junior Bedroom">
+        <img src="https://raw.githubusercontent.com/King-Kenn/sogaw-homes-listing/main/Junior%20Bedroom%2001.jpeg" alt="Junior Bedroom" loading="lazy" />
+      </div>
+      <div class="gallery-item" data-category="junior-bedroom" data-caption="Junior Bedroom">
+        <img src="https://raw.githubusercontent.com/King-Kenn/sogaw-homes-listing/main/Junior%20Bedroom%2002.jpeg" alt="Junior Bedroom" loading="lazy" />
+      </div>
+      <div class="gallery-item" data-category="junior-bedroom" data-caption="Junior Bedroom">
+        <img src="https://raw.githubusercontent.com/King-Kenn/sogaw-homes-listing/main/Junior%20Bedroom%2003.jpeg" alt="Junior Bedroom" loading="lazy" />
+      </div>
+      <!-- Stairway -->
+      <div class="gallery-item" data-category="stairway" data-caption="Stairway">
+        <img src="https://raw.githubusercontent.com/King-Kenn/sogaw-homes-listing/main/Stairway%2001.jpeg" alt="Stairway" loading="lazy" />
+      </div>
+      <div class="gallery-item" data-category="stairway" data-caption="Stairway">
+        <img src="https://raw.githubusercontent.com/King-Kenn/sogaw-homes-listing/main/Stairway%2002.jpeg" alt="Stairway" loading="lazy" />
+      </div>
+      <div class="gallery-item" data-category="stairway" data-caption="Stairway">
+        <img src="https://raw.githubusercontent.com/King-Kenn/sogaw-homes-listing/main/Stairway%2003.jpeg" alt="Stairway" loading="lazy" />
       </div>
     </div>
+  </div>
+
+  <!-- LIGHTBOX -->
+  <div class="lightbox" id="lightbox">
+    <button class="lightbox-close" id="lightboxClose">&times;</button>
+    <button class="lightbox-nav lightbox-prev" id="lightboxPrev">&#8249;</button>
+    <img class="lightbox-img" id="lightboxImg" src="" alt="" />
+    <p class="lightbox-caption" id="lightboxCaption"></p>
+    <button class="lightbox-nav lightbox-next" id="lightboxNext">&#8250;</button>
   </div>
 
   <!-- VIDEO TOUR -->
@@ -962,10 +1067,9 @@
         }
       });
     }, { threshold: 0.12 });
-
     document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
 
-    // Smooth nav highlight (optional enhancement)
+    // Nav highlight on scroll
     const sections = document.querySelectorAll('section[id], div[id]');
     const navLinks = document.querySelectorAll('.nav-links a');
     window.addEventListener('scroll', () => {
@@ -976,6 +1080,68 @@
       navLinks.forEach(a => {
         a.style.color = a.getAttribute('href') === '#' + current ? 'var(--gold)' : '';
       });
+    });
+
+    // Gallery filter
+    const filterBtns = document.querySelectorAll('.gallery-filter-btn');
+    const galleryItems = document.querySelectorAll('.gallery-item[data-category]');
+    filterBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        filterBtns.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        const filter = btn.dataset.filter;
+        galleryItems.forEach(item => {
+          item.classList.toggle('hidden', filter !== 'all' && item.dataset.category !== filter);
+        });
+      });
+    });
+
+    // Lightbox
+    const lightbox = document.getElementById('lightbox');
+    const lightboxImg = document.getElementById('lightboxImg');
+    const lightboxCaption = document.getElementById('lightboxCaption');
+    let currentIndex = 0;
+
+    function getVisible() {
+      return [...document.querySelectorAll('.gallery-item[data-category]:not(.hidden)')];
+    }
+    function openLightbox(index) {
+      currentIndex = index;
+      const item = getVisible()[currentIndex];
+      lightboxImg.src = item.querySelector('img').src;
+      lightboxImg.alt = item.querySelector('img').alt;
+      lightboxCaption.textContent = item.dataset.caption || '';
+      lightbox.classList.add('open');
+      document.body.style.overflow = 'hidden';
+    }
+    function closeLightbox() {
+      lightbox.classList.remove('open');
+      document.body.style.overflow = '';
+    }
+    function navLightbox(dir) {
+      const visible = getVisible();
+      currentIndex = (currentIndex + dir + visible.length) % visible.length;
+      const item = visible[currentIndex];
+      lightboxImg.src = item.querySelector('img').src;
+      lightboxImg.alt = item.querySelector('img').alt;
+      lightboxCaption.textContent = item.dataset.caption || '';
+    }
+
+    galleryItems.forEach(item => {
+      item.addEventListener('click', () => {
+        const visible = getVisible();
+        openLightbox(visible.indexOf(item));
+      });
+    });
+    document.getElementById('lightboxClose').addEventListener('click', closeLightbox);
+    document.getElementById('lightboxPrev').addEventListener('click', () => navLightbox(-1));
+    document.getElementById('lightboxNext').addEventListener('click', () => navLightbox(1));
+    lightbox.addEventListener('click', e => { if (e.target === lightbox) closeLightbox(); });
+    document.addEventListener('keydown', e => {
+      if (!lightbox.classList.contains('open')) return;
+      if (e.key === 'Escape') closeLightbox();
+      if (e.key === 'ArrowLeft') navLightbox(-1);
+      if (e.key === 'ArrowRight') navLightbox(1);
     });
   </script>
 
