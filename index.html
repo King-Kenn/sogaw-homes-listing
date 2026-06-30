@@ -530,6 +530,151 @@
     }
     .contact-email-display a:hover { color: var(--gold-light); }
 
+    /* ── PRICING ── */
+    .pricing-section { background: var(--navy); }
+    .section-intro {
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+      font-size: 0.95rem;
+      color: var(--muted);
+      margin-bottom: 36px;
+    }
+    .pricing-table {
+      display: flex;
+      flex-direction: column;
+      border: 1px solid rgba(201,168,76,0.2);
+      border-radius: var(--radius);
+      overflow: hidden;
+      margin-bottom: 20px;
+    }
+    .pricing-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px 28px;
+      border-bottom: 1px solid rgba(201,168,76,0.1);
+      background: var(--navy-light);
+      transition: background var(--transition);
+      gap: 16px;
+    }
+    .pricing-row:last-child { border-bottom: none; }
+    .pricing-row:hover { background: rgba(201,168,76,0.05); }
+    .pricing-row.total {
+      background: var(--gold-dim);
+      border-top: 1px solid rgba(201,168,76,0.3);
+    }
+    .pricing-row.total .pricing-label { color: var(--white); font-weight: 600; }
+    .pricing-row.total .pricing-amount { color: var(--gold); font-size: 1.05rem; }
+    .pricing-label {
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+      font-size: 0.9rem;
+      color: var(--off-white);
+    }
+    .pricing-amount {
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: var(--gold-light);
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+    .pricing-footnote {
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+      font-size: 0.78rem;
+      color: var(--muted);
+      line-height: 1.65;
+    }
+
+    /* ── LETTING TERMS ── */
+    .terms-section { background: var(--navy-mid); }
+    .terms-list { display: flex; flex-direction: column; gap: 12px; }
+    .terms-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 16px;
+      padding: 18px 24px;
+      background: var(--navy);
+      border: 1px solid rgba(201,168,76,0.12);
+      border-radius: var(--radius);
+      transition: border-color var(--transition);
+    }
+    .terms-item:hover { border-color: rgba(201,168,76,0.32); }
+    .terms-bullet {
+      width: 8px;
+      height: 8px;
+      background: var(--gold);
+      border-radius: 50%;
+      flex-shrink: 0;
+      margin-top: 7px;
+    }
+    .terms-text {
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+      font-size: 0.9rem;
+      color: var(--off-white);
+      line-height: 1.6;
+    }
+
+    /* ── FAQ ── */
+    .faq-section { background: var(--navy); }
+    .faq-list { display: flex; flex-direction: column; gap: 10px; }
+    .faq-item {
+      border: 1px solid rgba(201,168,76,0.15);
+      border-radius: var(--radius);
+      overflow: hidden;
+      transition: border-color var(--transition);
+    }
+    .faq-item.open { border-color: rgba(201,168,76,0.4); }
+    .faq-question {
+      width: 100%;
+      background: var(--navy-light);
+      border: none;
+      padding: 22px 28px;
+      text-align: left;
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+      transition: background var(--transition);
+    }
+    .faq-question:hover { background: rgba(201,168,76,0.06); }
+    .faq-question-text {
+      font-size: 0.95rem;
+      color: var(--white);
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+      font-weight: 600;
+    }
+    .faq-icon {
+      color: var(--gold);
+      font-size: 1.5rem;
+      line-height: 1;
+      flex-shrink: 0;
+      transition: transform var(--transition);
+    }
+    .faq-item.open .faq-icon { transform: rotate(45deg); }
+    .faq-answer {
+      display: none;
+      padding: 0 28px 22px;
+      background: var(--navy-light);
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+      font-size: 0.9rem;
+      color: var(--muted);
+      line-height: 1.75;
+    }
+    .faq-item.open .faq-answer { display: block; }
+
+    /* ── VIEWING NOTICE ── */
+    .viewing-notice {
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+      font-size: 0.82rem;
+      color: var(--muted);
+      text-align: center;
+      margin-bottom: 28px;
+      padding: 12px 20px;
+      background: rgba(201,168,76,0.06);
+      border: 1px solid rgba(201,168,76,0.15);
+      border-radius: 8px;
+    }
+
     /* ── FOOTER ── */
     footer {
       background: var(--navy-mid);
@@ -587,6 +732,7 @@
       <li><a href="#tour">Video Tour</a></li>
       <li><a href="#floors">Floors</a></li>
       <li><a href="#features">Features</a></li>
+      <li><a href="#pricing">Pricing</a></li>
       <li><a href="#contact">Contact</a></li>
     </ul>
   </nav>
@@ -1017,6 +1163,127 @@
     </div>
   </section>
 
+  <!-- PRICING & FEES -->
+  <section class="pricing-section" id="pricing">
+    <div class="container">
+      <p class="section-label fade-in">Pricing</p>
+      <h2 class="section-title fade-in">What It Costs</h2>
+      <div class="section-divider fade-in"></div>
+      <p class="section-intro fade-in">Transparent pricing, no surprises at signing.</p>
+
+      <div class="pricing-table fade-in">
+        <div class="pricing-row">
+          <span class="pricing-label">Annual Rent</span>
+          <span class="pricing-amount">NGN 9,000,000</span>
+        </div>
+        <div class="pricing-row">
+          <span class="pricing-label">Security Deposit <span style="font-size:0.78rem;color:var(--muted)">(refundable)</span></span>
+          <span class="pricing-amount">NGN 1,000,000</span>
+        </div>
+        <div class="pricing-row">
+          <span class="pricing-label">Agency Fee <span style="font-size:0.78rem;color:var(--muted)">(payable by Tenant)</span></span>
+          <span class="pricing-amount">10% of annual rent</span>
+        </div>
+        <div class="pricing-row">
+          <span class="pricing-label">Legal / Agreement Fee <span style="font-size:0.78rem;color:var(--muted)">(payable by Tenant)</span></span>
+          <span class="pricing-amount">10% of annual rent</span>
+        </div>
+        <div class="pricing-row total">
+          <span class="pricing-label">Estimated Total at Signing</span>
+          <span class="pricing-amount">NGN 11,800,000</span>
+        </div>
+      </div>
+      <p class="pricing-footnote fade-in">Agency and legal fees are paid by the Tenant in addition to rent and deposit, in line with standard Lagos State letting practice.</p>
+    </div>
+  </section>
+
+  <!-- LETTING TERMS -->
+  <section class="terms-section" id="terms">
+    <div class="container">
+      <p class="section-label fade-in">How It Works</p>
+      <h2 class="section-title fade-in">Letting Terms</h2>
+      <div class="section-divider fade-in"></div>
+      <p class="section-intro fade-in">This is a private residential letting, not a short stay.</p>
+
+      <div class="terms-list">
+        <div class="terms-item fade-in">
+          <div class="terms-bullet"></div>
+          <span class="terms-text">Private residential letting — named occupants only</span>
+        </div>
+        <div class="terms-item fade-in">
+          <div class="terms-bullet"></div>
+          <span class="terms-text">12-month minimum term, full year's rent payable in advance</span>
+        </div>
+        <div class="terms-item fade-in">
+          <div class="terms-bullet"></div>
+          <span class="terms-text">Tenant Application Form and KYC documents required before execution</span>
+        </div>
+        <div class="terms-item fade-in">
+          <div class="terms-bullet"></div>
+          <span class="terms-text">No subletting, no short-stay use, no commercial activity</span>
+        </div>
+        <div class="terms-item fade-in">
+          <div class="terms-bullet"></div>
+          <span class="terms-text">Viewings strictly by appointment</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="faq-section" id="faq">
+    <div class="container">
+      <p class="section-label fade-in">Questions</p>
+      <h2 class="section-title fade-in">Frequently Asked Questions</h2>
+      <div class="section-divider fade-in"></div>
+
+      <div class="faq-list fade-in">
+        <div class="faq-item">
+          <button class="faq-question" aria-expanded="false">
+            <span class="faq-question-text">Is this property furnished?</span>
+            <span class="faq-icon">+</span>
+          </button>
+          <div class="faq-answer">Yes. The property is fully furnished and move-in ready, including furniture, appliances, electronics, and the home cinema system.</div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-question" aria-expanded="false">
+            <span class="faq-question-text">What is the minimum lease term?</span>
+            <span class="faq-icon">+</span>
+          </button>
+          <div class="faq-answer">12 months, with full year's rent payable in advance.</div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-question" aria-expanded="false">
+            <span class="faq-question-text">What documents do I need to apply?</span>
+            <span class="faq-icon">+</span>
+          </button>
+          <div class="faq-answer">A completed Tenant Application Form and KYC documents (government ID, proof of address, proof of income, and references). These are provided once you express interest.</div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-question" aria-expanded="false">
+            <span class="faq-question-text">Can I sublet or use this property for short stays?</span>
+            <span class="faq-icon">+</span>
+          </button>
+          <div class="faq-answer">No. This is a private residential letting for named occupants only. Subletting, short-stay, and commercial use are not permitted.</div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-question" aria-expanded="false">
+            <span class="faq-question-text">Is the rent negotiable?</span>
+            <span class="faq-icon">+</span>
+          </button>
+          <div class="faq-answer">Pricing and terms are set out above.</div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-question" aria-expanded="false">
+            <span class="faq-question-text">How do I book a viewing?</span>
+            <span class="faq-icon">+</span>
+          </button>
+          <div class="faq-answer">Viewings are by appointment only. Contact us via email or WhatsApp to schedule a visit.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <!-- CONTACT -->
   <section class="contact-section" id="contact">
     <div class="container">
@@ -1024,6 +1291,7 @@
         <p class="section-label fade-in" style="text-align:center">Get in Touch</p>
         <h2 class="section-title fade-in" style="text-align:center">Book a Viewing</h2>
         <div class="section-divider fade-in" style="margin:16px auto 32px"></div>
+        <p class="viewing-notice fade-in">Viewings are by appointment only. Please reach out via email or WhatsApp to schedule a visit.</p>
         <p class="fade-in">
           Interested in making this home yours? Reach out via email or WhatsApp and our team at Sogaw Homes will arrange a private viewing at your convenience.
         </p>
@@ -1143,6 +1411,22 @@
     document.getElementById('lightboxPrev').addEventListener('click', () => navLightbox(-1));
     document.getElementById('lightboxNext').addEventListener('click', () => navLightbox(1));
     lightbox.addEventListener('click', e => { if (e.target === lightbox) closeLightbox(); });
+    // FAQ accordion
+    document.querySelectorAll('.faq-question').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const item = btn.closest('.faq-item');
+        const isOpen = item.classList.contains('open');
+        document.querySelectorAll('.faq-item.open').forEach(el => {
+          el.classList.remove('open');
+          el.querySelector('.faq-question').setAttribute('aria-expanded', 'false');
+        });
+        if (!isOpen) {
+          item.classList.add('open');
+          btn.setAttribute('aria-expanded', 'true');
+        }
+      });
+    });
+
     document.addEventListener('keydown', e => {
       if (!lightbox.classList.contains('open')) return;
       if (e.key === 'Escape') closeLightbox();
