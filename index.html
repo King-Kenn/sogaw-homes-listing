@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Sogaw Homes — 3-Bedroom Luxury Townhouse | Lekki Gardens Estate</title>
-  <meta name="description" content="Fully furnished 3-bedroom luxury townhouse in Lekki Gardens Estate Phase 1, Sangotedo, Ajah, Lagos. Private cinema, island kitchen, master suite with stone bath." />
+  <title>Sogaw Homes — 3-Bedroom Luxury Townhouse | Currently Let</title>
+  <meta name="description" content="This property is currently let. A fully furnished 3-bedroom luxury townhouse in Lekki Gardens Estate Phase 1, Sangotedo, Ajah, Lagos. Contact us to register your interest for future availability." />
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -30,6 +30,22 @@
       font-family: 'Georgia', 'Times New Roman', serif;
       line-height: 1.7;
       overflow-x: hidden;
+    }
+
+    /* ── CURRENTLY LET BANNER ── */
+    .let-banner {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 200;
+      background: #9a6c10;
+      color: #fff;
+      text-align: center;
+      padding: 11px 24px;
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+      font-size: 0.83rem;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      line-height: 1.5;
     }
 
     /* ── NAVIGATION ── */
@@ -725,6 +741,11 @@
 </head>
 <body>
 
+  <!-- CURRENTLY LET BANNER -->
+  <div class="let-banner" id="letBanner">
+    This property is currently let. Please check back for future availability or contact us to register your interest.
+  </div>
+
   <!-- NAVIGATION -->
   <nav>
     <a href="#" class="nav-brand">Sogaw Homes</a>
@@ -776,12 +797,9 @@
         Gen + Inverter Backup
       </div>
     </div>
-    <a href="#contact" class="hero-cta">
-      Enquire Now
-      <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
-        <line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/>
-      </svg>
-    </a>
+    <span class="hero-cta" style="background:var(--muted);color:#fff;opacity:0.55;cursor:not-allowed;pointer-events:none;">
+      Currently Unavailable
+    </span>
   </section>
 
   <!-- VIDEO TOUR -->
@@ -1289,11 +1307,10 @@
     <div class="container">
       <div class="contact-inner">
         <p class="section-label fade-in" style="text-align:center">Get in Touch</p>
-        <h2 class="section-title fade-in" style="text-align:center">Book a Viewing</h2>
+        <h2 class="section-title fade-in" style="text-align:center">Register Your Interest</h2>
         <div class="section-divider fade-in" style="margin:16px auto 32px"></div>
-        <p class="viewing-notice fade-in">Viewings are by appointment only. Please reach out via email or WhatsApp to schedule a visit.</p>
         <p class="fade-in">
-          Interested in making this home yours? Reach out via email or WhatsApp and our team at Sogaw Homes will arrange a private viewing at your convenience.
+          This property is currently let. If you would like to be considered for future availability, reach out via email or WhatsApp and we will keep your details on file.
         </p>
         <div class="contact-buttons fade-in">
           <a href="mailto:sogawhomes@gmail.com" class="btn btn-gold">
@@ -1332,6 +1349,20 @@
   </footer>
 
   <script>
+    // Offset nav below the let banner
+    function positionNav() {
+      const banner = document.getElementById('letBanner');
+      const nav = document.querySelector('nav');
+      const hero = document.querySelector('.hero');
+      if (banner && nav) {
+        const h = banner.offsetHeight;
+        nav.style.top = h + 'px';
+        if (hero) hero.style.paddingTop = (120 + h) + 'px';
+      }
+    }
+    positionNav();
+    window.addEventListener('resize', positionNav);
+
     // Scroll fade-in animation
     const observer = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
